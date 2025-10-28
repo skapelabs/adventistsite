@@ -295,11 +295,18 @@ function displayEvents(events) {
 
 // ... (Rest of the script functions: initAnimations, initHospitalFiltering, initContactForm, etc. - NO CHANGE)
 
-// Function to initialize animations (NO CHANGE)
+// Function to initialize animations (OPTIMIZED FOR FASTER LOADING)
 function initAnimations() {
-    // Add staggered delay to elements
+    // Add minimal staggered delay to elements (reduced from 0.1s to 0.03s)
     document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .slide-in-up').forEach((el, index) => {
-        el.style.transitionDelay = `${index * 0.1}s`;
+        // Special handling for critical sections to load faster
+        if (el.closest('#hospital-highlights') || el.closest('.values')) {
+            // Almost no delay for critical sections
+            el.style.transitionDelay = `${index * 0.02}s`;
+        } else {
+            // Reduced delay for other sections
+            el.style.transitionDelay = `${index * 0.03}s`;
+        }
     });
     
     // Use Intersection Observer to detect when elements are in viewport

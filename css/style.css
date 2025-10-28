@@ -14,6 +14,7 @@
   --light-gray: #F0F0F0;
   --medium-gray: #CCCCCC;
   --dark-gray: #333333;
+  --partner-logo-gray: #888888;
   
   /* Typography */
   --heading-font: 'Playfair Display', serif;
@@ -29,15 +30,131 @@
   /* Border Radius */
   --border-radius: 12px;
   
-  /* Transitions */
-  --transition-fast: 0.3s ease;
-  --transition-medium: 0.5s ease;
-  --transition-slow: 0.8s ease;
+  /* Transitions - Optimized for faster perceived loading */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
   
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== OUR IMPACT & PARTNERS SECTION ===== */
+.impact-section {
+  background-color: var(--background-light-beige);
+  padding: var(--spacing-lg) 0;
+}
+
+/* Impact Statistics */
+.impact-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: var(--spacing-md) 0;
+  text-align: center;
+}
+
+.stat-item {
+  flex: 1;
+  min-width: 200px;
+  margin: var(--spacing-sm);
+  padding: var(--spacing-md);
+}
+
+.stat-number {
+  font-family: var(--heading-font);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  font-family: var(--body-font);
+  font-size: 1.2rem;
+  color: var(--primary-dark-green);
+}
+
+/* Divider */
+.impact-divider {
+  height: 2px;
+  background-color: var(--accent-orange);
+  width: 60%;
+  margin: var(--spacing-md) auto;
+  opacity: 0.6;
+}
+
+/* Partners Section */
+.partners-section {
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+.partners-title {
+  font-family: var(--heading-font);
+  font-size: 1.8rem;
+  color: var(--primary-dark-green);
+  margin-bottom: var(--spacing-md);
+}
+
+.partner-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.partner-logo {
+  flex: 0 1 200px;
+  height: 80px;
+  margin: 0 var(--spacing-sm);
+  transition: all 0.3s ease-in-out;
+}
+
+.partner-svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--partner-logo-gray);
+  opacity: 0.7;
+  transition: all 0.3s ease-in-out;
+}
+
+.partner-svg text {
+  fill: var(--partner-logo-gray);
+  transition: all 0.3s ease-in-out;
+}
+
+.partner-logo:hover {
+  transform: scale(1.05);
+}
+
+.partner-logo:hover .partner-svg {
+  opacity: 1;
+}
+
+.partner-logo:hover .partner-svg text {
+  fill: var(--primary-dark-green);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .impact-stats {
+    flex-direction: column;
+  }
+  
+  .stat-item {
+    margin: var(--spacing-sm) 0;
+  }
+  
+  .partner-logos {
+    gap: var(--spacing-sm);
+  }
+  
+  .partner-logo {
+    flex: 0 1 150px;
+  }
 }
 
 /* ===== UPDATES & HAPPENINGS SECTION ===== */
@@ -1172,6 +1289,12 @@ textarea.form-control {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+/* Faster animations for hospital highlights and values sections */
+#hospital-highlights .fade-in,
+.values .fade-in {
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
 .fade-in.active, .fade-in.animate {
