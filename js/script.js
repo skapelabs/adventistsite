@@ -251,37 +251,46 @@ function displayEvents(events) {
     
     // Create event items from events data
     limitedEvents.forEach(event => {
-        // Parse the date
-        const eventDate = new Date(event.date);
-        // Safety check if date parsing fails
-        if (isNaN(eventDate)) return; 
-        
-        const month = eventDate.toLocaleString('default', { month: 'short' });
-        const day = eventDate.getDate();
-        
         // Create event item
         const eventItem = document.createElement('div');
         eventItem.className = 'event-item';
         
-        eventItem.innerHTML = `
-            <div class="event-date">
-                <span class="event-month">${month}</span>
-                <span class="event-day">${day}</span>
-            </div>
-            <div class="event-details">
-                <h4 class="event-name">${event.name}</h4>
-                <p class="event-time">${event.time}</p>
-                <p class="event-location">${event.location}</p>
-            </div>
-        `;
+        // Parse the date
+        const eventDate = new Date(event.date);
         
+        // Check if date is valid before creating date elements
+        let eventHTML = '';
+        
+        if (!isNaN(eventDate) && eventDate.toString() !== 'Invalid Date') {
+            // Only create date elements if we have a valid date
+            const month = eventDate.toLocaleString('default', { month: 'short' });
+            const day = eventDate.getDate();
+            
+            eventHTML = `
+                <div class="event-date">
+                    <span class="event-month">${month}</span>
+                    <span class="event-day">${day}</span>
+                </div>
+                <div class="event-details">
+                    <h4 class="event-name">${event.name}</h4>
+                    <p class="event-time">${event.time}</p>
+                    <p class="event-location">${event.location}</p>
+                </div>
+            `;
+        } else {
+            // Skip date display if invalid, only show event details
+            eventHTML = `
+                <div class="event-details" style="width: 100%;">
+                    <h4 class="event-name">${event.name}</h4>
+                    <p class="event-time">${event.time}</p>
+                    <p class="event-location">${event.location}</p>
+                </div>
+            `;
+        }
+        
+        eventItem.innerHTML = eventHTML;
         eventsContainer.appendChild(eventItem);
     });
-    
-    // --- CRITICAL FIX IMPLEMENTATION ---
-    // After content is rendered, remove the hiding class.
-    // This removes 'opacity: 0' and smoothly reveals the loaded content.
-    eventsContainer.classList.remove('js-hide-onload');
 }
 
 // ... (Rest of the script functions: initAnimations, initHospitalFiltering, initContactForm, etc. - NO CHANGE)
